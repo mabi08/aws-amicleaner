@@ -29,6 +29,7 @@ class App(object):
         self.full_report = args.full_report
         self.force_delete = args.force_delete
         self.ami_min_days = args.ami_min_days
+        self.include_attached = args.include_attached
 
         self.mapping_strategy = {
             "key": self.mapping_key,
@@ -51,7 +52,8 @@ class App(object):
         if not excluded_amis:
             excluded_amis += f.fetch_unattached_lc()
             excluded_amis += f.fetch_zeroed_asg()
-            excluded_amis += f.fetch_instances()
+            if not self.include_attached:
+                excluded_amis += f.fetch_instances()
 
         candidates = [v
                       for k, v

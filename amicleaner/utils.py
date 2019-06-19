@@ -119,6 +119,12 @@ def parse_args(args):
                         help="Number of days AMI to keep excluding those "
                              "currently being running")
 
+    parser.add_argument("--include-attached",
+                        dest='include_attached',
+                        default=False,
+                        help="Also include AMIs attached to EC2 / ASG / LC",
+                        action='store_true')
+
     parsed_args = parser.parse_args(args)
     if parsed_args.mapping_key and not parsed_args.mapping_values:
         print("missing mapping-values\n")
